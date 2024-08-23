@@ -1,12 +1,13 @@
-import Header from "@/components/Header";
-import { SignedIn, UserButton } from "@clerk/nextjs";
 import Image from "next/image";
-
-import AddDocumentBtn from "@/components/AddDocumentBtn";
-import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 
-export default async function Home() {
+import { currentUser } from "@clerk/nextjs/server";
+import { SignedIn, UserButton } from "@clerk/nextjs";
+
+import Header from "@/components/Header";
+import AddDocumentBtn from "@/components/AddDocumentBtn";
+
+export default async function HomePage() {
   const clerkUser = await currentUser();
 
   if (!clerkUser) redirect("/sign-in");
