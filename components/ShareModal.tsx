@@ -21,6 +21,8 @@ import { Button } from "./ui/button";
 import Collaborator from "./Collaborator";
 import UserTypeSelector from "./UserTypeSelector";
 
+import { updateDocumentAccess } from "@/lib/actions/room.actions";
+
 function ShareModal({
   roomId,
   creatorId,
@@ -35,7 +37,18 @@ function ShareModal({
   const [email, setEmail] = useState("");
   const [userType, setUserType] = useState<UserType>("viewer");
 
-  const shareDocumentHandler = async () => {};
+  const shareDocumentHandler = async () => {
+    setLoading(true);
+
+    await updateDocumentAccess({
+      email,
+      roomId,
+      userType,
+      updatedBy: user.info,
+    });
+
+    setLoading(false);
+  };
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
