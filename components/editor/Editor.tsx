@@ -18,6 +18,7 @@ import {
 import { useThreads } from "@liveblocks/react/suspense";
 
 import Loader from "../Loader";
+import Comments from "../Comments";
 import Theme from "./plugins/Theme";
 import ToolbarPlugin from "./plugins/ToolbarPlugin";
 import FloatingToolbarPlugin from "./plugins/FloatingToolbarPlugin";
@@ -80,6 +81,7 @@ export function Editor({
           <LiveblocksPlugin>
             <FloatingComposer className="w-[350px]" />
             <FloatingThreads threads={threads} />
+            <Comments />
           </LiveblocksPlugin>
         </div>
       </div>
