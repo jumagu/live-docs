@@ -15,11 +15,11 @@ import ActiveCollaborators from "./ActiveCollaborators";
 import { updateDocument } from "@/lib/actions/room.actions";
 
 const CollaborativeRoom = ({
+  users,
   roomId,
   roomMetadata,
+  currentUserType,
 }: CollaborativeRoomProps) => {
-  const currentUserType = "editor";
-
   const [editing, setEditing] = useState(false);
   const [loading, setLoading] = useState(false);
   const [documentTitle, setDocumentTitle] = useState(roomMetadata.title);
@@ -115,7 +115,7 @@ const CollaborativeRoom = ({
               </SignedIn>
             </div>
           </Header>
-          <Editor />
+          <Editor roomId={roomId} currentUserType={currentUserType} />
         </div>
       </ClientSideSuspense>
     </RoomProvider>
