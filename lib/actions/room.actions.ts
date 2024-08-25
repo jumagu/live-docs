@@ -1,5 +1,6 @@
 "use server";
 
+import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 
 import { nanoid } from "nanoid";
@@ -104,7 +105,21 @@ export const updateDocumentAccess = async ({
     const room = await liveblocks.updateRoom(roomId, { usersAccesses });
 
     if (room) {
-      // TODO - Notifications
+      const notificationId = nanoid();
+
+      await liveblocks.triggerInboxNotification({
+        roomId,
+        userId: email,
+        kind: "$documentAccess",
+        subjectId: notificationId,
+        activityData: {
+          userType,
+          title: `You have been granted ${userType} access to the document by ${updatedBy.name}`,
+          updatedBy: updatedBy.name,
+          avatar: updatedBy.avatar,
+          email: updatedBy.email,
+        },
+      });
     }
 
     revalidatePath(`/documents/${roomId}`);
@@ -140,5 +155,17 @@ export const removeCollaborator = async ({
     return parseStringify(updatedRoom);
   } catch (error) {
     console.log(`Error happened while removing the collaborator: ${error}`);
+  }
+};
+
+export const deleteDocument = async (roomId: string) => {
+  try {
+    await liveblocks.deleteRoom(roomId);
+
+    revalidatePath("/");
+
+    redirect("/");
+  } catch (error) {
+    console.log(`Error happened while deleting a room: ${error}`);
   }
 };
