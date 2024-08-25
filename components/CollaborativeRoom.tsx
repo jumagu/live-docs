@@ -9,11 +9,11 @@ import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 
 import Loader from "./Loader";
 import { Input } from "./ui/input";
+import ShareModal from "./ShareModal";
 import Header from "@/components/Header";
 import { Editor } from "@/components/editor/Editor";
 import ActiveCollaborators from "./ActiveCollaborators";
 import { updateDocument } from "@/lib/actions/room.actions";
-import ShareModal from "./ShareModal";
 
 const CollaborativeRoom = ({
   users,
