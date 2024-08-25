@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Image from "next/image";
 import { redirect } from "next/navigation";
 
@@ -5,10 +6,12 @@ import { currentUser } from "@clerk/nextjs/server";
 import { SignedIn, UserButton } from "@clerk/nextjs";
 
 import Header from "@/components/Header";
+import DeleteModal from "@/components/DeleteModal";
+import Notifications from "@/components/Notifications";
 import AddDocumentBtn from "@/components/AddDocumentBtn";
-import { getDocuments } from "@/lib/actions/room.actions";
-import Link from "next/link";
+
 import { dateConverter } from "@/lib/utils";
+import { getDocuments } from "@/lib/actions/room.actions";
 
 export default async function HomePage() {
   const clerkUser = await currentUser();
@@ -23,7 +26,7 @@ export default async function HomePage() {
     <main className="home-container">
       <Header className="sticky left-0 top-0">
         <div className="flex items-center gap-2 lg:gap-4">
-          Notifications
+          <Notifications />
           <SignedIn>
             <UserButton />
           </SignedIn>
@@ -61,7 +64,7 @@ export default async function HomePage() {
                     </p>
                   </div>
                 </Link>
-                {/* TODO delete button */}
+                <DeleteModal roomId={id} />
               </li>
             ))}
           </ul>
