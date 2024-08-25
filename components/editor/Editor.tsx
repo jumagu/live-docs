@@ -20,6 +20,7 @@ import { useThreads } from "@liveblocks/react/suspense";
 import Loader from "../Loader";
 import Comments from "../Comments";
 import Theme from "./plugins/Theme";
+import DeleteModal from "../DeleteModal";
 import ToolbarPlugin from "./plugins/ToolbarPlugin";
 import FloatingToolbarPlugin from "./plugins/FloatingToolbarPlugin";
 
@@ -57,7 +58,7 @@ export function Editor({
       <div className="editor-container size-full">
         <div className="toolbar-wrapper min-w-full flex justify-between">
           <ToolbarPlugin />
-          {/* {currentUserType === "editor" && (<DeleteModal roomId={roomId} />)} */}
+          {currentUserType === "editor" && <DeleteModal roomId={roomId} />}
         </div>
 
         <div className="editor-wrapper flex flex-col items-center justify-start">
